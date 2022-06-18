@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply text-lg lg:text-xl leading-8 lg:leading-10 font-serif text-zinc-800 dark:text-zinc-100
+}
+
+body {
+	@apply bg-white dark:bg-zinc-900
+}
+
+p {
+	@apply mb-5
+}
+
+h1 {
+	@apply text-3xl lg:text-5xl font-semibold mt-12 mb-8 font-sans
+}
+
+h2 {
+	@apply text-2xl lg:text-4xl font-semibold mt-12 mb-8 font-sans
+}
+
+h3 {
+	@apply text-xl lg:text-3xl font-semibold mt-12 mb-8 font-sans
+}
+
+h4 {
+	@apply text-lg lg:text-2xl font-semibold mt-12 mb-8 font-sans
+}
+
+h5 {
+	@apply text-base lg:text-xl font-semibold mt-12 mb-8 font-sans
+}
+
+h6 {
+	@apply text-sm lg:text-lg font-semibold mt-12 mb-8 font-sans
+}
+
+ul {
+	@apply list-disc pl-10 mt-4 mb-8
+}
+
+ol {
+	@apply list-decimal pl-10 mt-4 mb-8
+}
+
+ul li,
+ol li {
+	@apply mb-2
+}
+
+hr {
+	@apply w-full my-10 border-b border-zinc-300 dark:border-zinc-700
+}
+
+a {
+	@apply text-zinc-800 hover:text-zinc-700 dark:text-zinc-300 dark:hover:text-zinc-400
+}
+
+iframe {
+	@apply w-full h-auto aspect-video
+}
+
+figcaption {
+	@apply text-sm my-4 text-center mb-0
+}
+
+blockquote {
+	@apply border-l-2 border-orange-600 pl-4 italic text-xl lg:text-3xl leading-8 lg:leading-10 font-serif mb-8
+}
+
+.posted-by a {
+	@apply no-underline
+}
+
+.entry-content > *:not(.kg-width-full):not(.kg-width-wide) {
+	@apply col-start-main col-end-main
+}
+
+.entry-content > *:not(.kg-width-full):not(.kg-width-wide):not(blockquote):not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+	@apply text-lg sm:text-xl leading-7 sm:leading-8 font-serif
+}
+
+.entry-content .kg-card+:not(.kg-card),
+.entry-content :not(.kg-card):not([id])+.kg-card {
+	@apply mt-5
+}
+
+.entry-content h1,
+.entry-content h2,
+.entry-content h3,
+.entry-content h4,
+.entry-content h5,
+.entry-content h6 {
+	@apply mt-5 mb-2
+}
+
+.kg-width-wide {
+	@apply col-start-wide col-end-wide
+}
+
+.kg-width-full {
+	@apply col-start-full col-end-full
+}
+
+.kg-bookmark-card {
+	@apply relative w-full mb-5
+}
+
+.kg-bookmark-container {
+	@apply flex rounded border border-zinc-200 overflow-hidden font-sans no-underline
+}
+
+.kg-bookmark-content {
+	@apply flex flex-col grow basis-full items-start justify-start p-5 overflow-hidden
+}
+
+.kg-bookmark-title {
+	@apply text-sm leading-snug font-semibold
+}
+
+.kg-bookmark-description {
+	@apply text-sm leading-snug pt-2 font-normal max-h-11 overflow-y-hidden opacity-70
+}
+
+.kg-bookmark-metadata {
+	@apply flex items-center mt-6 w-full text-sm font-medium whitespace-nowrap
+}
+
+.kg-bookmark-icon {
+	@apply w-5 h-5 mr-2
+}
+
+.kg-bookmark-author {
+	@apply overflow-hidden text-ellipsis opacity-70 font-semibold
+}
+
+.kg-bookmark-publisher {
+	@apply before:content-['•'] before:mx-2 overflow-hidden text-ellipsis font-normal opacity-70
+}
+
+.kg-bookmark-thumbnail {
+	@apply relative grow w-1/3
+}
+
+.kg-bookmark-thumbnail img {
+	@apply object-cover w-full h-full
+}

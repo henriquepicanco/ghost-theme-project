@@ -1,0 +1,15 @@
+<div class="flex flex-nowrap flex-none align-middle order-2 mr-auto lg:mr-0">
+    {{#is "home"}}
+        <h1 class="leading-loose text-xl lg:text-2xl m-0 font-bold tracking-tight">
+            <a class="font-sans text-zinc-800 dark:text-white" href="/">
+                {{@site.title}}
+            </a>
+        </h1>
+    {{else}}
+        <p class="leading-loose text-xl lg:text-2xl m-0 font-bold tracking-tight">
+            <a class="font-sans text-zinc-800 dark:text-white" href="/">
+                {{@site.title}}
+            </a>
+        </p>
+    {{/is}}
+</div>

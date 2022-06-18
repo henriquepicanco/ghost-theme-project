@@ -1,0 +1,25 @@
+{{#is "post"}}
+    <aside class="items-center gap-x-3 grid col-start-main col-end-main lg:col-start-wide lg:col-end-wide grid-cols-[auto,1fr] lg:grid-cols-1 mt-6 pr-0 static lg:absolute lg:left-0 lg:pr-8 font-sans">
+        {{#primary_author}}
+            <figure class="col-start-1 col-end-2 row-start-1 row-end-3 lg:row-end-2 h-12 w-12 lg:h-16 lg:w-16 mb-0 lg:mb-5">
+                {{#if profile_image}}
+                    <img class="h-12 w-12 lg:h-16 lg:w-16 overflow-hidden rounded-full" src="{{profile_image}}" alt="{{name}}">
+                {{else}}
+                {{/if}}
+            </figure>
+
+            <h4 class="m-0 tracking-tighter leading-none text-lg col-start-2 col-end-3 lg:col-start-1 lg:col-end-2 row-start-1 row-end-2 lg:row-start-2 lg:row-end-3">
+                <a href="{{url}}">{{name}}</a>
+            </h4>
+        {{/primary_author}}
+
+        <div class="leading-none lg:leading-normal mt-2 items-center flex text-sm tracking-tighter col-start-2 col-end-3 lg:col-start-1 lg:col-end-2 row-start-2 row-end-3 lg:row-start-3 lg:row-end-4">
+            <time class="posted-on" datetime="{{date format="YYYY-MM-DD"}}">{{date}}</time>
+
+            {{#if reading_time}}
+                <span class="bg-current rounded-full h-[2px] w-[2px] mx-2"></span>
+                <span class="article-length">{{reading_time minute="1 min" minutes="% min"}}</span>
+            {{/if}}
+        </div>
+    </aside>
+{{/is}}

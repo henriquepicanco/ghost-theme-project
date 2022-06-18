@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="HandheldFriendly" content="True" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>{{meta_title}}</title>
+
+        <link rel="stylesheet" type="text/css" href="{{asset "css/style.min.css"}}" />
+
+        <script>
+            // It's best to inline this in `head` to avoid FOUC (flash of unstyled content) when changing pages or themes
+            if ( localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) ) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        </script>
+
+        <script type="module" defer>
+            import Turbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+
+            let listeners
+
+            export const applyListeners = () => {
+                const toggle = document.querySelector('.js-theme-toggle')
+                if (toggle) toggle.addEventListener('click', toggleTheme, false)
+                return () => {
+                    toggle.removeEventListener('click', toggleTheme, false)
+                }
+            }
+
+            document.addEventListener('turbo:load', () => {
+                listeners = applyListeners()
+            })
+
+            document.addEventListener('turbo:before-render', () => {
+                try {
+                    listeners()
+                } catch (e) {}
+            })
+        </script>
+
+        {{ghost_head}}
+    </head>
+
+    <body class="{{body_class}}">
+        <turbo-frame target="_top">
+            <a class="sr-only" href="#site-content">{{t "Skip to the content"}}</a>
+
+            {{> "header/site-header"}}
+
+            <div id="site-content" class="flex flex-col flex-wrap flex-1">
+                {{{body}}}
+            </div>
+        </turbo-frame>
+
+        {{> "icons/icons-symbol-defs"}}
+
+        {{ghost_foot}}
+
+        <script id="dark-mode-toggle-js" type="text/javascript">
+            var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+            var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+            // Change the icons inside the button based on previous settings
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                themeToggleLightIcon.classList.remove('hidden');
+            } else {
+                themeToggleDarkIcon.classList.remove('hidden');
+            }
+
+            var themeToggleBtn = document.getElementById('dark-mode-toggle');
+
+            themeToggleBtn.addEventListener('click', function() {
+                // toggle icons inside button
+                themeToggleDarkIcon.classList.toggle('hidden');
+                themeToggleLightIcon.classList.toggle('hidden');
+
+                // if set via local storage previously
+                if (localStorage.getItem('color-theme')) {
+                    if (localStorage.getItem('color-theme') === 'light') {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    }
+                // if NOT set via local storage previously
+                } else {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.setItem('color-theme', 'light');
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.setItem('color-theme', 'dark');
+                    }
+                }
+            })
+        </script>
+
+        <script id="menu-toggle-js" type="text/javascript">
+            var menuToggle = document.getElementById( 'menu-toggle' );
+
+            var menuOpenIcon = document.getElementById( 'menu-open-icon' );
+            var menuCloseIcon = document.getElementById( 'menu-close-icon' );
+
+            menuToggle.addEventListener( 'click', function() {
+                document.body.classList.toggle( 'offcanvas-menu-toggled' );
+                document.body.classList.remove( 'offcanvas-search-toggled' );
+
+                if ( menuToggle.getAttribute( 'aria-expanded' ) === 'true' ) {
+                    menuToggle.setAttribute( 'aria-expanded', 'false' );
+
+                    menuOpenIcon.classList.add( 'block' );
+                    menuOpenIcon.classList.remove( 'hidden' );
+
+                    menuCloseIcon.classList.add( 'hidden' );
+                    menuCloseIcon.classList.remove( 'block' );
+                } else {
+                    menuToggle.setAttribute( 'aria-expanded', 'true' );
+
+                    menuOpenIcon.classList.add( 'hidden' );
+                    menuOpenIcon.classList.remove( 'block' );
+
+                    menuCloseIcon.classList.add( 'block' );
+                    menuCloseIcon.classList.remove( 'hidden' );
+                }
+            });
+        </script>
+
+        <script id="search-toggle-js" type="text/javascript">
+            var searchToggle = document.getElementById( 'search-toggle' );
+
+            var searchOpenIcon = document.getElementById( 'search-open-icon' );
+            var searchCloseIcon = document.getElementById( 'search-close-icon' );
+
+            searchToggle.addEventListener( 'click', function() {
+                document.body.classList.toggle( 'offcanvas-search-toggled' );
+                document.body.classList.remove( 'offcanvas-menu-toggled' );
+
+                if ( searchToggle.getAttribute( 'aria-expanded' ) === 'true' ) {
+                    searchToggle.setAttribute( 'aria-expanded', 'false' );
+
+                    searchOpenIcon.classList.add( 'block' );
+                    searchOpenIcon.classList.remove( 'hidden' );
+
+                    searchCloseIcon.classList.add( 'hidden' );
+                    searchCloseIcon.classList.remove( 'block' );
+                } else {
+                    searchToggle.setAttribute( 'aria-expanded', 'true' );
+
+                    searchOpenIcon.classList.add( 'hidden' );
+                    searchOpenIcon.classList.remove( 'block' );
+
+                    searchCloseIcon.classList.add( 'block' );
+                    searchCloseIcon.classList.remove( 'hidden' );
+                }
+            });
+        </script>
+    </body>
+</html>

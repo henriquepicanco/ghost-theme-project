@@ -1,0 +1,19 @@
+{{#is "post"}}
+    {{#get "posts" include="authors" filter="tags:[{{post.tags}}]+id:-{{post.id}}" limit="3" as |next|}}
+        {{#if next}}
+            <div class="grid grid-cols-mobile lg:grid-cols-desktop mt-20">
+                <section class="max-w-none mb-12 flex flex-col col-start-main col-end-main">
+                    <h4 class="flex items-center text-lg uppercase m-0 font-bold after:content-[''] after:bg-zinc-300 dark:after:bg-zinc-700 after:flex-grow after:h-[1px] after:ml-4">{{t "Read next"}}</h4>
+                </section>
+
+                <div class="col-start-main col-end-main">
+                    <div class="grid gap-x-8 gap-y-10 items-center grid-cols-2">
+                        {{#foreach next}}
+                            {{> "content/content-grid-medium"}}
+                        {{/foreach}}
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+    {{/get}}
+{{/is}}

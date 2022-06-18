@@ -1,0 +1,25 @@
+{{!< default}}
+
+<div class="block max-w-7xl mx-auto">
+    <main class="py-16 px-5 lg:px-9">
+        <div>
+            <section>
+                <h1 class="uppercase text-2xl tracking-tighter mb-10">{{t "Most recent"}}</h1>
+            </section>
+
+            <div>
+                <div class="grid gap-x-12 gap-y-10 items-center grid-cols-1 lg:grid-cols-2">
+                    {{#foreach posts}}
+                        {{#if @first}}
+                            {{> "content/content-grid-large"}}
+                        {{else}}
+                            {{> "content/content-grid-medium"}}
+                        {{/if}}
+                    {{/foreach}}
+
+                    {{pagination}}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

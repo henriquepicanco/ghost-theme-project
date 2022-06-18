@@ -1,0 +1,172 @@
+{{!< default}}
+
+<div class="block max-w-7xl mx-auto">
+    <main class="py-16 px-5 lg:px-9">
+        {{^is "paged"}}
+            <div>
+                <section>
+                    <div class="grid gap-x-8 gap-y-10 grid-cols-1 lg:grid-cols-2">
+                        {{#get "posts" include="authors" limit="7"}}
+                            {{#foreach posts}}
+                                {{#if @first}}
+                                    {{> "content/content-grid-large"}}
+                                {{else}}
+                                    {{> "content/content-grid-medium"}}
+                                {{/if}}
+                            {{/foreach}}
+                        {{/get}}
+                    </div>
+
+                    <footer class="border-t border-zinc-300 dark:border-zinc-700 mt-12 pt-5 text-right font-sans">
+                        {{#match pagination.pages ">" 1}}
+                            <a class="items-center inline-flex font-semibold tracking-tighter" href="{{@site.url}}/page/2">
+                                {{t "Show more"}}
+                                <svg class="ml-2 icon icon-arrow-right h-4 w-4 fill-current"><use xlink:href="#icon-arrow-right"></use></svg>
+                            </a>
+                        {{/match}}
+                    </footer>
+                </section>
+
+                {{#if @custom.enter_tag_slugs_for_primary_sections}}
+                    {{#get "tags" filter="slug:[{{@custom.enter_tag_slugs_for_primary_sections}}]"}}
+                        {{#foreach tags}}
+                            <section>
+                                <h2 class="uppercase text-2xl tracking-tighter mb-10">
+                                    <a href="{{url}}">{{name}}</a>
+                                </h2>
+
+                                <div class="grid gap-x-8 gap-y-10 grid-cols-1 lg:grid-cols-2">
+                                    {{#get "posts" include="tags,authors" filter="tag:{{slug}}" limit="7"}}
+                                        {{#foreach posts}}
+                                            {{#if @first}}
+                                                {{> "content/content-grid-large"}}
+                                            {{else}}
+                                                {{> "content/content-grid-medium"}}
+                                            {{/if}}
+                                        {{/foreach}}
+                                    {{/get}}
+                                </div>
+
+                                <footer class="border-t border-zinc-300 dark:border-zinc-700 mt-12 pt-5 text-right font-sans">
+                                    <a class="items-center inline-flex font-semibold tracking-tighter" href="{{url}}">
+                                        {{t "Show more"}}
+                                        <svg class="ml-2 icon icon-arrow-right h-4 w-4 fill-current"><use xlink:href="#icon-arrow-right"></use></svg>
+                                    </a>
+                                </footer>
+                            </section>
+                        {{/foreach}}
+                    {{/get}}
+
+                    {{#if @custom.enter_tag_slugs_for_secondary_sections}}
+                        {{#get "tags" filter="slug:[{{@custom.enter_tag_slugs_for_secondary_sections}}]"}}
+                            {{#if tags}}
+                                <div class="grid gap-x-20 gap-y-12 grid-cols-1 lg:grid-cols-3 mt-32">
+                                    {{#foreach tags}}
+                                        <section>
+                                            <header class="flex items-center border-b border-zinc-300 dark:border-zinc-700 justify-between mb-6 pb-3">
+                                                <h2 class="tracking-tighter text-lg uppercase m-0">
+                                                    <a href="{{url}}">{{name}}</a>
+                                                </h2>
+                                                <a class="items-center inline-flex font-semibold tracking-tighter font-sans opacity-70" href="{{url}}">
+                                                    {{t "More"}}
+                                                    <svg class="ml-2 icon icon-arrow-right h-4 w-4 fill-current"><use xlink:href="#icon-arrow-right"></use></svg>
+                                                </a>
+                                            </header>
+
+                                            <div class="gh-topic-content">
+                                                {{#get "posts" include="tags,authors" filter="tag:{{slug}}" limit="5"}}
+                                                    {{#foreach posts}}
+                                                        {{> "content/content-grid-small"}}
+                                                    {{/foreach}}
+                                                {{/get}}
+                                            </div>
+                                        </section>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                    {{/if}}
+                {{else}}
+                    {{#match posts.length ">" 1}}
+                        {{#get "tags" include="count.posts" order="count.posts desc" limit="3"}}
+                            {{#foreach tags}}
+                                <section>
+                                    <h2 class="uppercase text-2xl tracking-tighter mb-10">
+                                        <a href="{{url}}">{{name}}</a>
+                                    </h2>
+
+                                    <div class="grid gap-x-8 gap-y-10 grid-cols-1 lg:grid-cols-2">
+                                        {{#get "posts" include="tags,authors" filter="tag:{{slug}}" limit="7"}}
+                                            {{#foreach posts}}
+                                                {{#if @first}}
+                                                    {{> "content/content-grid-large"}}
+                                                {{else}}
+                                                    {{> "content/content-grid-medium"}}
+                                                {{/if}}
+                                            {{/foreach}}
+                                        {{/get}}
+                                    </div>
+
+                                    <footer class="border-t border-zinc-300 dark:border-zinc-700 mt-12 pt-5 text-right font-sans">
+                                        <a class="items-center inline-flex font-semibold tracking-tighter" href="{{url}}">
+                                            {{t "Show more"}}
+                                            <svg class="ml-2 icon icon-arrow-right h-4 w-4 fill-current"><use xlink:href="#icon-arrow-right"></use></svg>
+                                        </a>
+                                    </footer>
+                                </section>
+                            {{/foreach}}
+                        {{/get}}
+
+                        {{#get "tags" include="count.posts" order="count.posts desc"}}
+                            {{#if tags.[3]}}
+                                <div class="grid gap-x-20 gap-y-12 grid-cols-1 lg:grid-cols-3 mt-32">
+                                    {{#foreach tags from="4" limit="3"}}
+                                        <section>
+                                            <header class="flex items-center border-b border-zinc-300 dark:border-zinc-700 justify-between mb-6 pb-3">
+                                                <h2 class="tracking-tighter text-lg uppercase m-0">
+                                                    <a href="{{url}}">{{name}}</a>
+                                                </h2>
+                                                <a class="items-center inline-flex font-semibold tracking-tighter font-sans opacity-70" href="{{url}}">
+                                                    {{t "More"}}
+                                                    <svg class="ml-2 icon icon-arrow-right h-4 w-4 fill-current"><use xlink:href="#icon-arrow-right"></use></svg>
+                                                </a>
+                                            </header>
+
+                                            <div class="gh-topic-content">
+                                                {{#get "posts" include="tags,authors" filter="tag:{{slug}}" limit="5"}}
+                                                    {{#foreach posts}}
+                                                        {{> "content/content-grid-small"}}
+                                                    {{/foreach}}
+                                                {{/get}}
+                                            </div>
+                                        </section>
+                                    {{/foreach}}
+                                </div>
+                            {{/if}}
+                        {{/get}}
+                    {{/match}}
+                {{/if}}
+            </div>
+        {{else}}
+            <div>
+                <section>
+                    <h1 class="uppercase text-2xl tracking-tighter mb-10">{{t "Most recent"}}</h1>
+                </section>
+
+                <div>
+                    <div class="grid gap-x-12 gap-y-10 items-center grid-cols-1 lg:grid-cols-2">
+                        {{#foreach posts}}
+                            {{#if @first}}
+                                {{> "content/content-grid-large"}}
+                            {{else}}
+                                {{> "content/content-grid-medium"}}
+                            {{/if}}
+                        {{/foreach}}
+
+                        {{pagination}}
+                    </div>
+                </div>
+            </div>
+        {{/is}}
+    </main>
+</div>

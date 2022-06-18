@@ -1,0 +1,9 @@
+<nav class="flex flex-col lg:flex-row">
+    <ul class="flex flex-col lg:flex-row list-none items-center p-0 m-0">
+        {{#foreach navigation type="secondary"}}
+        <li class="m-0">
+            <a class="block font-sans text-sm leading-loose px-0 lg:px-2" href="{{url absolute="true"}}">{{label}}</a>
+        </li>
+        {{/foreach}}
+    </ul>
+</nav>
